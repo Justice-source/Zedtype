@@ -26,7 +26,7 @@ To run the game:
 
 7. In the instructional video I used in developing this game, the tutor made use of the nltk module which is similar to spacy module.
 
-8. I compromised by making use of a txt file filled with 194,000 words from the English Language TXT file source (gwicks.net/dictionaries.html) and injected that into my python file.
+8. I compromised by making use of a txt file filled with 194,000 words from the English Language TXT file source gwicks.net/dictionaries.html and injected that into my python file.
 Adjust the file paths of the assets depending on the system you use as my file paths will differ from yours.
 
 9. Make sure to have python installed on your PC.

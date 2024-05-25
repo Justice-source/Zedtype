@@ -1,6 +1,18 @@
 # Zedtype
 A fun typing game made with python along with the pygame module
 
+# For more information
+[Game Tutorial](https://www.youtube.com/watch?v=3RDMRpUHFBE)
+
+1. Clone the GitHub repository:
+    ```shell
+   git clone https://github.com/Justice-source/Library-class.git
+    
+2. Run the code in visual studio code through your terminal:
+   ```shell
+    node index.js
+
+
 To run the game:
 Make sure you are using an up to date version of Visual Studio Code.
 Install pygame using the command - pip install pygame.

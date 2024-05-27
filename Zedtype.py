@@ -192,7 +192,9 @@ def check_high_score():
         with open('high_score.txt', 'w') as file:
             file.write(str(int(high_score)))
 
-
+# Code block that contains the main game loop that is required to keep the game running
+# a variable is created to be constantly active until we are ready to exit the game
+            
 run = True
 while run:
     screen.fill('gray')

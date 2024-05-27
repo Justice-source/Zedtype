@@ -1,3 +1,4 @@
+#loading the modules
 import copy
 import pygame
 import random
@@ -23,7 +24,7 @@ fps = 60
 score = 0
 
 # Load in assets like fonts, sound effects and music
-footer_font = pygame.font.Font('C:/Users/JUSTICE/Videos/TYPING GAME PROJECT/assets/fonts/Square.ttf', 50)
+footer_font = pygame.font.Font('C:/Users/JUSTICE/Videos/TYPING GAME PROJECT/assets/fonts/Square.ttf', 30)
 pause_font = pygame.font.Font('C:/Users/JUSTICE/Videos/TYPING GAME PROJECT/assets/fonts/1up.ttf', 38)
 banner_font = pygame.font.Font('C:/Users/JUSTICE/Videos/TYPING GAME PROJECT/assets/fonts/1up.ttf', 28)
 font = pygame.font.Font('C:/Users/JUSTICE/Videos/TYPING GAME PROJECT/assets/fonts/AldotheApache.ttf', 48)
@@ -42,7 +43,7 @@ wrong.set_volume(0.3)
 
 # game variables
 level = 1
-lives = 20
+lives = 5
 word_objects = []
 file = open('high_score.txt', 'r')
 read = file.readlines()
@@ -57,7 +58,7 @@ letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
 choices = [False, True, False, False, False, False, False]
 len_indexes = [0, 2, 4, 6, 8, 10]  # Example definition
 
-
+# Classes for Word
 class Word:
     def __init__(self, text, speed, y_pos, x_pos):
         self.text = text
@@ -65,6 +66,7 @@ class Word:
         self.y_pos = y_pos
         self.x_pos = x_pos
 
+# Functions of the Word class 
     def draw(self):
         color = 'black'
         screen.blit(font.render(self.text, True, color), (self.x_pos, self.y_pos))
@@ -75,7 +77,7 @@ class Word:
     def update(self):
         self.x_pos -= self.speed
 
-
+# Classes for buttons
 class Button:
     def __init__(self, x_pos, y_pos, text, clicked, surf):
         self.x_pos = x_pos
@@ -84,6 +86,7 @@ class Button:
         self.clicked = clicked
         self.surf = surf
 
+# Function of the button class
     def draw(self):
         cir = pygame.draw.circle(self.surf, (45, 89, 135), (self.x_pos, self.y_pos), 35)
         if cir.collidepoint(pygame.mouse.get_pos()):
@@ -97,8 +100,9 @@ class Button:
         self.surf.blit(pause_font.render(self.text, True, 'white'), (self.x_pos - 15, self.y_pos - 25))
 
 
+
+ # screen outlines for background shapes and title bar areas
 def draw_screen():
-    # screen outlines for background shapes and title bar areas
     pygame.draw.rect(screen, (32, 42, 68), [0, HEIGHT - 100, WIDTH, 100], 0)
     pygame.draw.rect(screen, 'white', [0, 0, WIDTH, HEIGHT], 5)
     pygame.draw.line(screen, 'white', (250, HEIGHT - 100), (250, HEIGHT), 2)
@@ -118,7 +122,7 @@ def draw_screen():
     screen.blit(banner_font.render(f'Lives: {lives}', True, 'black'), (10, 10))
     return pause_btn.clicked
 
-
+# Function for how the pause button works
 def draw_pause():
     choice_commits = copy.deepcopy(choices)
     surface = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
@@ -126,6 +130,7 @@ def draw_pause():
     pygame.draw.rect(surface, (0, 0, 0, 200), [100, 100, 600, 300], 5, 5)
     resume_btn = Button(160, 200, '>', False, surface)
     resume_btn.draw()
+
     quit_btn = Button(410, 200, 'X', False, surface)
     quit_btn.draw()
     surface.blit(footer_font.render('MENU', True, 'white'), (110, 110))
@@ -133,6 +138,7 @@ def draw_pause():
     surface.blit(footer_font.render('QUIT', True, 'white'), (450, 175))
     surface.blit(footer_font.render('Active Letter Lengths:', True, 'white'), (110, 250))
 
+#  Range of the lenght of words?
     for i in range(len(choices)):
         btn = Button(160 + (i * 80), 350, str(i + 2), False, surface)
         btn.draw()
@@ -146,6 +152,7 @@ def draw_pause():
 # Define len_indexes somewhere in your code, for example:
 len_indexes = [0, 2, 4, 6, 8, 10]  # Example definition
 
+# How the levels will increment depending on how your score increases
 def generate_level():
     word_objs = []
     include = []
@@ -156,7 +163,7 @@ def generate_level():
         if choices[i]:
             include.append((len_indexes[i], len_indexes[i + 1]))
     for i in range(level):
-        speed = random.randint(1, 3)
+        speed = random.randint(2, 3)
         y_pos = random.randint(10 + (i * vertical_spacing), (i + 1) * vertical_spacing)
         x_pos = random.randint(WIDTH, WIDTH + 1000)
         text = random.choice(wordlist).lower()
@@ -164,6 +171,7 @@ def generate_level():
         word_objs.append(new_word)
     return word_objs
 
+# Function to check if  the answer you typed for the displayed word  you chose is correct
 def check_answer(scor):
     to_remove = []
     for wrd in word_objects:
@@ -176,6 +184,7 @@ def check_answer(scor):
         word_objects.remove(wrd)
     return scor
 
+# Function to check and export high score, if the loop is exited- Your scre will be exported to the txt file in the folder
 def check_high_score():
     global high_score
     if score > high_score:
